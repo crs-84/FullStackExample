@@ -1,0 +1,73 @@
+﻿@page
+
+<div id="app">
+    <div class="container">
+
+        <div class="notification mt-2">
+            This is just a POC for demonstration purpose.<br />
+            A real project will be different in many aspects.<br />
+            In order to avoid any complications and access issues, 
+            no real database was used, to mimic the database I'm storing the data in Memory.<br />
+            What this example does is implement basic CRUD operations including a simple UI.
+        </div>
+
+        <button class="button is-link mt-6" @@click="action='create'" v-if="!action">New User</button>
+
+        <div v-if="action">
+            <h3 class="is-capitalized is-size-3">{{action}} User</h3>
+            <form v-on:submit.prevent="save()">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        <input class="input" type="text" v-model="currentUser.name" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Last Name</label>
+                    <div class="control">
+                        <input class="input" type="text" v-model="currentUser.lastName" required>
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-link">Save</button>
+                    </div>
+                    <div class="control">
+                        <button type="button" class="button is-link is-light" @@click="close()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div v-if="!action">
+            <table class="table mt-4 is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in users">
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td align="right">
+                            <a @@click="updateUser(user)">Edit</a>
+                            <a class="ml-3" @@click="deleteUser(user.id)">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
